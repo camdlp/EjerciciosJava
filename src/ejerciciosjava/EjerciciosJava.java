@@ -1,5 +1,6 @@
 package ejerciciosjava;
 
+import static com.sun.javafx.util.Utils.ladder;
 import java.util.Arrays;
 
 /**
@@ -77,33 +78,6 @@ public class EjerciciosJava {
     }
 
     public void calendario(int dia) {
-        
-//        Esto fue lo primero que se me ocurrió. xD
-//        int[] arrayDias = {1, 2, 3, 4, 5, 6, 7};
-//        for(int k=0; k<5; k++){
-//            if(k == 0){
-//                for(int i=0; i<7; i++){
-//                    System.out.print(arrayDias[i]);    
-//                }
-//            }
-//            else{
-//                for(int i=0; i<7; i++){
-//                    arrayDias[i] += 7;
-//                    if(arrayDias[i] > 31){
-//                        arrayDias[i] = 0;
-//                    }
-//                    if(i == 0){
-//                        System.out.println(arrayDias[i]);    
-//                    }
-//                    
-//                    else{
-//                        System.out.print(arrayDias[i]);
-//                    }
-//                    
-//                    
-//                }
-//            }
-//        }  
 
         String[] arrayDias = new String[35];
         int day = 1;
@@ -126,17 +100,44 @@ public class EjerciciosJava {
 
             }
         }
+        System.out.println();
 
     }
     
     
     public boolean escalera (char ladder [][]){
-        for(int i=0; i<ladder.length; i++){
-            if(ladder [i] ==ladder [i+1] && ladder [i+1] ==ladder [i+2]){
-                
+        //CREO UN NUEVO ARRAY DE CHARS QUE ME GUARDE EL ARRAY ANTERIOR PARA CHEQUEAR 
+        //SI ES IGUAL QUE EL SIGUIENTE
+        char [] anterior = new char[ladder[1].length];
+        int escalera = 0;
+        
+        //FOR ANIDADO PARA CHEQUEAR CADA CHAR DE CADA COLUMNA
+        for(int i = 0; i < ladder.length; i++){
+            for(int j = 0; j < ladder[i].length; j++){
+                if(i != 0){
+                    //COMPRUEBO SI COINCIDEN TODOS LOS CARACTERES MENOS UNO ENTRE ESTE ARRAY Y EL ANTERIOR
+                    if(ladder[i][0] == anterior[0] && ladder[i][1] == anterior[1] && ladder[i][2] == anterior[2] && ladder[i][3] != anterior[3] ||
+                       ladder[i][0] == anterior[0] && ladder[i][1] == anterior[1] && ladder[i][2] != anterior[2] && ladder[i][3] == anterior[3] ||
+                       ladder[i][0] == anterior[0] && ladder[i][1] != anterior[1] && ladder[i][2] == anterior[2] && ladder[i][3] == anterior[3] ||
+                       ladder[i][0] != anterior[0] && ladder[i][1] == anterior[1] && ladder[i][2] == anterior[2] && ladder[i][3] == anterior[3]){
+                       //SI SON IGUALES SE COPIA EL ARRAY ACTUAL A ANTERIOR Y SE SUMA UNO AL INT ESCALERA
+                        anterior = ladder[i]; 
+                       escalera += 1;
+                    }
+                    
+                }
+                //SI ES EL PRIMER ARRAY DE LA PRIMERA FILA SIMPLEMENTE SE COPIA A ANTERIOR PARA COMPROBARLO CON EL SIGUIENTE
+                else{
+                    anterior = ladder[i];
+                }
             }
-        }return true;
+        }
+        //SI EL INT ESCALERA ES IGUAL A UNO MENOS QUE LA LONGITUD DE LAS COLUMNAS DEL ARRAY(PORQUE EL PRIMER ARRAY NO SUMA) SERÁ TRUE.
+        if(escalera == ladder.length-1){
+            return true;
+        }else return false;
     }
+    
     
     
     
@@ -152,22 +153,37 @@ public class EjerciciosJava {
     public static void main(String[] args) {
 
         EjerciciosJava ejercicio1 = new EjerciciosJava();
-//        int[] listaNumeros = {50, 31, 27, 2, 5, 99};
-//        int[] listaNumeros2 = {150, 31, 27, 2, 5, 99};
-//        System.out.println(ejercicio1.maximo(listaNumeros)[0]);
-//        System.out.println(Arrays.toString(ejercicio1.maximo(listaNumeros)));
-//         System.out.println(Arrays.toString(ejercicio1.maximo(listaNumeros2)));
-//        
-//        EjerciciosJava ejercicio2 = new EjerciciosJava();
-//        String palindromo = "Allí por la tropa portado, traído a ese paraje de maniobras, una tipa como capitán usar boina me dejara, pese a odiar toda tropa por tal ropilla";
-//        System.out.println(ejercicio2.palindromo(palindromo));
-//
-//        EjerciciosJava ejercicio3 = new EjerciciosJava();
-//        String iso = "asdfghklñ";
-//        System.out.println(ejercicio2.isograma(iso));
+        int[] listaNumeros = {50, 31, 27, 2, 5, 99};
+        int[] listaNumeros2 = {150, 31, 27, 2, 5, 99};
+        System.out.println(ejercicio1.maximo(listaNumeros)[0]);
+        System.out.println(Arrays.toString(ejercicio1.maximo(listaNumeros)));
+        System.out.println(Arrays.toString(ejercicio1.maximo(listaNumeros2)));
+         
+        System.out.println("===================================================");
+        
+        EjerciciosJava ejercicio2 = new EjerciciosJava();
+        String palindromo = "Allí por la tropa portado, traído a ese paraje de maniobras, una tipa como capitán usar boina me dejara, pese a odiar toda tropa por tal ropilla";
+        System.out.println(ejercicio2.palindromo(palindromo));
+        
+        System.out.println("===================================================");
 
-//        ejercicio1.ejemplosString();
-        ejercicio1.calendario(3);
+        EjerciciosJava ejercicio3 = new EjerciciosJava();
+        String iso = "asdfghklñ";
+        System.out.println(ejercicio3.isograma(iso));
+        
+        System.out.println("===================================================");
+
+        ejercicio1.ejemplosString();
+        
+        System.out.println("===================================================");
+        
+        EjerciciosJava ejercicio4 = new EjerciciosJava();
+        ejercicio4.calendario(3);
+        
+        
+        System.out.println("===================================================");
+        
+        EjerciciosJava ejercicio5 = new EjerciciosJava();
         char[][] ladder= {
         {'P',	'A',	'T',	'A'}, 
         {'P',	'A',	'T',	'O'},
@@ -177,7 +193,11 @@ public class EjerciciosJava {
 	{'G',	'A',	'T',	'O'},
 	{'M',	'A',	'T',	'O'},
 	};
-         System.out.println(ejercicio1.escalera(ladder));
+        System.out.println(ejercicio5.escalera(ladder));
+        
+        
+         
+        
 
     }
 
